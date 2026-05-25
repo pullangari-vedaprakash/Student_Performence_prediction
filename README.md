@@ -1,117 +1,343 @@
-# Student Performance Prediction
+# 🎓 Student Performance Prediction
 
 ## Overview
 
-This project is an end-to-end machine learning application designed to predict student performance (test scores) based on various demographic and academic factors. The model analyzes how variables such as gender, ethnicity, parental level of education, lunch type, and test preparation courses impact students' math, reading, and writing scores.
+Student Performance Prediction is an end-to-end Machine Learning project designed to predict students' math scores based on demographic, educational, and academic factors.
 
-Key highlights:
-- **Exploratory Data Analysis (EDA)**: Performed in Jupyter Notebook to uncover insights like linear relationships between scores and the influence of factors like lunch and parental education.
-- **ML Pipeline**: Includes data ingestion, preprocessing, model training, hyperparameter tuning, and evaluation using multiple regression models.
-- **Models Evaluated**: Linear Regression, Lasso, Ridge, K-Neighbors Regressor, Decision Tree, Random Forest, XGBRegressor, CatBoost, and AdaBoost (with GridSearchCV for optimization).
-- **Deployment**: Hosted on AWS Elastic Beanstalk as a web app using Flask for real-time predictions.
-- **Tech Stack**: Python, Pandas, NumPy, Scikit-learn, CatBoost, XGBoost, Flask, AWS Elastic Beanstalk.
+The project follows a complete ML workflow including:
+- Data Ingestion
+- Data Preprocessing
+- Exploratory Data Analysis (EDA)
+- Feature Engineering
+- Model Training
+- Hyperparameter Tuning
+- Model Evaluation
+- Deployment using Streamlit
 
-The project follows best practices for ML workflows, including exception handling, logging, and modular code structure.
+The application predicts student performance using inputs such as:
+- Gender
+- Race/Ethnicity
+- Parental Level of Education
+- Lunch Type
+- Test Preparation Course
+- Reading Score
+- Writing Score
 
-## Table of Contents
+---
 
-- [Overview](#overview)
-- [Features](#features)
-- [Dataset](#dataset)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [EDA Insights](#eda-insights)
-- [Model Training and Evaluation](#model-training-and-evaluation)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
+# 🚀 Features
+
+- End-to-End Machine Learning Pipeline
+- Exploratory Data Analysis with Visualizations
+- Multiple Regression Models Comparison
+- Hyperparameter Tuning using GridSearchCV
+- Modular Code Structure
+- Custom Exception Handling & Logging
+- Saved Model & Preprocessor Pipelines
+- Interactive Streamlit Web Application
+- Deployment Ready
+
+---
+
+# 🛠️ Tech Stack
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- CatBoost
+- XGBoost
+- Matplotlib
+- Seaborn
+- Streamlit
+- Flask (Initial Version)
+
+---
+
+# 📂 Project Structure
+
+```bash
+Student_Performence_prediction/
+│
+├── artifacts/
+│   ├── model.pkl
+│   ├── proprocessor.pkl
+│   ├── train.csv
+│   ├── test.csv
+│   └── data.csv
+│
+├── notebook/
+│
+├── src/
+│   ├── components/
+│   │   ├── data_ingestion.py
+│   │   ├── data_transformation.py
+│   │   └── model_trainer.py
+│   │
+│   ├── pipeline/
+│   │   └── predict_pipeline.py
+│   │
+│   ├── exception.py
+│   ├── logger.py
+│   └── utils.py
+│
+├── templates/
+│
+├── application.py
+├── streamlit_app.py
+├── requirements.txt
+├── setup.py
+└── README.md
+```
+
+---
+
+# 📊 Dataset Information
+
+The dataset contains **1000 student records** with demographic and academic features.
 
 ## Features
 
-- **Predictive Modeling**: Predicts student scores using ensemble and boosting algorithms for high accuracy.
-- **Hyperparameter Tuning**: Uses GridSearchCV to find optimal parameters for each model.
-- **Web Interface**: A simple Flask-based web app for inputting student details and getting predictions.
-- **Modular Pipeline**: Custom utilities for saving/loading models, evaluating performance, and handling exceptions.
-- **Visualization**: Pairplots and other Seaborn/Matplotlib visuals in EDA to highlight data relationships.
-- **Deployment Ready**: Configured for AWS Elastic Beanstalk with `application.py` and `requirements.txt`.
+| Feature | Description |
+|---|---|
+| gender | Male / Female |
+| race_ethnicity | Group A-E |
+| parental_level_of_education | Parent education level |
+| lunch | Standard / Free-Reduced |
+| test_preparation_course | Completed / None |
+| reading_score | Reading marks |
+| writing_score | Writing marks |
+| math_score | Target Variable |
 
-## Dataset
+---
 
-The dataset (`stud.csv`) contains 1000 records with the following features:
-- **gender**: Male/Female
-- **race_ethnicity**: Group A/B/C/D/E
-- **parental_level_of_education**: Education level (e.g., bachelor's, master's)
-- **lunch**: Standard/Free-Reduced
-- **test_preparation_course**: None/Completed
-- **math_score, reading_score, writing_score**: Target variables (scores out of 100)
+# 🔍 Exploratory Data Analysis (EDA)
 
-Source: Synthetic dataset inspired by real-world student performance studies (e.g., from Kaggle).
+Extensive EDA was performed using Seaborn and Matplotlib to understand patterns, distributions, and feature relationships.
 
-Key Insights from Data:
-- Shape: (1000, 8)
-- No missing values or duplicates.
-- Scores are normally distributed with some outliers.
+---
 
-## Installation
+# 📌 Univariate Analysis
 
-1. Clone the repository:
-2. Create a virtual environment (optional but recommended):
-3. Install dependencies:
+Univariate analysis was used to study the distribution of individual variables in the dataset.
 
+### Insights:
+- Group C students had the highest representation.
+- Group A had the lowest representation.
+- Most parents had some college or associate degree education levels.
+- Student scores followed approximately normal distributions.
 
-## Usage
+### Sample Univariate Analysis
 
-### Local Development
+![Univariate Analysis](image_eda_1.png)
 
-1. Run EDA Notebook:
-- Open `notebook/1. EDA STUDENT PERFORMANCE .ipynb` in Jupyter.
-- Execute cells to perform data analysis and visualize insights.
+---
 
-2. Train Models:
-- Run the training pipeline:
-- This will preprocess data, evaluate models, and save the best one in `artifacts/`.
+# 📈 Data Visualizations
 
-3. Run the Flask App Locally:
-- Open `http://127.0.0.1:5000/` in your browser.
-- Input student details via the form to get score predictions.
+Different visualizations were created to understand trends and feature relationships.
 
-### Prediction Example
+### Visualizations Included:
+- Bar Charts
+- Pie Charts
+- Histograms
+- KDE Plots
+- Correlation Analysis
+- Distribution Plots
 
-Input:
+### Key Insights:
+- Reading and writing scores are strongly correlated with math scores.
+- Students completing test preparation courses performed better.
+- Students with standard lunch generally scored higher.
+- Female students performed better in reading and writing scores.
+- Higher parental education positively impacted student performance.
+
+### Sample Visualization
+
+![Visualization](image_eda_2.png)
+
+---
+
+# 📉 Score Distribution Analysis
+
+Distribution plots were used to analyze score patterns across various parental education levels.
+
+### Observations:
+- Scores are approximately normally distributed.
+- Students with educated parents tend to score higher.
+- Some outliers exist in low score ranges.
+
+### Sample Distribution Analysis
+
+![Distribution Analysis](image_eda_3.png)
+
+---
+
+# 🤖 Machine Learning Models Used
+
+The following regression models were trained and evaluated:
+
+- Linear Regression
+- Lasso Regression
+- Ridge Regression
+- K-Neighbors Regressor
+- Decision Tree Regressor
+- Random Forest Regressor
+- XGBoost Regressor
+- CatBoost Regressor
+- AdaBoost Regressor
+
+---
+
+# 🏆 Best Performing Model
+
+- CatBoost Regressor
+- XGBoost Regressor
+
+Achieved approximately:
+- **~90% R² Score**
+
+---
+
+# ⚙️ ML Pipeline
+
+The ML pipeline includes:
+
+1. Data Ingestion
+2. Data Transformation
+3. Feature Encoding
+4. Scaling
+5. Model Training
+6. Hyperparameter Tuning
+7. Model Evaluation
+8. Prediction Pipeline
+
+---
+
+# 🌐 Streamlit Web Application
+
+The project includes an interactive Streamlit web app for real-time predictions.
+
+## Features:
+- User-friendly interface
+- Dropdown-based inputs
+- Real-time predictions
+- Interactive sliders
+- Fast inference using saved model artifacts
+
+### Sample Streamlit App
+
+![Streamlit App](streamlit_ui.png)
+
+---
+
+# ▶️ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/pullangari-vedaprakash/Student_Performence_prediction.git
+```
+
+---
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux/Mac
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# ▶️ Run Streamlit Application
+
+```bash
+streamlit run streamlit_app.py
+```
+
+---
+
+# 🎯 Prediction Example
+
+## Input:
 - Gender: Female
 - Race/Ethnicity: Group B
 - Parental Education: Bachelor's Degree
 - Lunch: Standard
-- Test Preparation: None
+- Test Preparation Course: Completed
+- Reading Score: 75
+- Writing Score: 80
 
-Output: Predicted scores for Math, Reading, and Writing.
+## Output:
+- Predicted Math Score: 78.45
 
+---
 
-## EDA Insights
+# 📌 Future Improvements
 
-From the notebook:
-- Scores increase linearly with each other (e.g., high math scores correlate with high reading/writing).
-- Females outperform males in pass percentage and top scores.
-- Factors like standard lunch and higher parental education positively impact performance.
-- Test preparation course completion is beneficial but not strongly correlated.
-- Visualizations: Pairplots colored by gender show clear trends.
+- Add Deep Learning Models
+- Add Model Explainability (SHAP)
+- Docker Deployment
+- CI/CD Integration
+- Cloud Deployment
+- Authentication System
+- Advanced Analytics Dashboard
 
-For full details, refer to the notebook.
+---
 
-## Model Training and Evaluation
+# 🤝 Contributing
 
-- **Preprocessing**: One-hot encoding for categoricals, scaling for numerics.
-- **Models**: Evaluated using R² score on train/test split.
-- **Best Model**: CatBoost or XGBoost (based on hyperparameter tuning; achieves ~90% R²).
-- **Evaluation**: Custom function in `utils.py` uses GridSearchCV and reports test scores.
+Contributions are welcome.
 
-## Contributing
+Steps:
+1. Fork Repository
+2. Create Feature Branch
+3. Commit Changes
+4. Push Changes
+5. Create Pull Request
 
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/YourFeature`).
-3. Commit changes (`git commit -m 'Add YourFeature'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
-5. Open a Pull Request.
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 🙌 Acknowledgements
+
+- Kaggle Dataset Inspiration
+- Scikit-learn Documentation
+- CatBoost Documentation
+- Streamlit Documentation
+
+---
+
+# 👨‍💻 Author
+
+Vedaprakash Pullangari
+
+GitHub:
+https://github.com/pullangari-vedaprakash
